@@ -18,7 +18,7 @@ public class Poupanca extends Conta {
     }
 
     public void contaCorrentaParaPoupanca(double tranferencia) {
-        if (tranferencia <= saldo) {
+        if (tranferencia <= saldo && tranferencia>0) {
             this.saldo = saldo - tranferencia;
             saldoPoupanca = saldoPoupanca + tranferencia;
             System.out.println("Transferencia realizada");
@@ -29,7 +29,7 @@ public class Poupanca extends Conta {
     }
 
     public void PoupancaParaContaCorrente(double tranferencia) {
-        if (tranferencia <= saldoPoupanca) {
+        if (tranferencia <= saldoPoupanca && tranferencia>0) {
             this.saldoPoupanca = saldoPoupanca - tranferencia;
             this.saldo = saldo + tranferencia;
             System.out.println("Transferencia realizada");
