@@ -1,8 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
-
 import Banco.Banco;
 import Banco.Conta;
 import Banco.Poupanca;
@@ -21,6 +19,7 @@ public class Main {
     }
 
     public static void menu() {
+        System.out.println();
         System.out.println("----------------------------------------------------------");
         System.out.println("--------------------Banco P3 -----------------------------");
         System.out.println("----------------------------------------------------------");
@@ -29,9 +28,10 @@ public class Main {
         System.out.println("1 ------ Criar conta");
         System.out.println("2 ------ Depositar");
         System.out.println("3 ------ Sacar");
-        System.out.println("4 ------ Listar");
-        System.out.println("5 ------ sair");
-
+        System.out.println("4 ------ Tranferencia entre CC e Poupanca");
+        System.out.println("5 ------ Listar");
+        System.out.println("6 ------ sair");
+        System.out.println();
         int menu = sc.nextInt();
 
         switch (menu) {
@@ -45,9 +45,12 @@ public class Main {
                 sacar();
                 break;
             case 4:
-                listarContas();
+                tranferencia();
                 break;
             case 5:
+                listarContas();
+                break;
+            case 6:
                 System.out.println();
                 System.exit(0);
 
@@ -64,45 +67,41 @@ public class Main {
         System.out.println();
         System.out.println("Digite 1 - para conta sem poupança");
         System.out.println("Digite 2 - para conta com poupança");
-        
 
-       
-            int seletor = sc.nextInt();
+        int seletor = sc.nextInt();
 
-            if (seletor == 1) {
-                System.out.println("Nome : ");
-                
-                String nome ; 
-                sc.nextLine();
-                nome = sc.nextLine();
-                System.out.println("Numero da conta : ");
-                int numeroConta = sc.nextInt();
-                System.out.println("Saldo inicial : ");
-                
-                double saldo; 
-                saldo = sc.nextDouble();
-                Conta conta = new Conta(numeroConta, nome, saldo);
-                contas.add(conta);
-                
-            }
-            if (seletor == 2) {
-                System.out.println("Nome : ");
-                sc.nextLine();
-                String nome = sc.nextLine();
-                System.out.println("Numero da conta : ");
-                int numeroConta = sc.nextInt();
-                System.out.println("Saldo inicial : ");
-                double saldo = sc.nextDouble();
-                System.out.println("Saldo inicial da poupanca : ");
-                double saldoPoupanca = sc.nextDouble();
-                Poupanca poupanca = new Poupanca(numeroConta, nome, saldo, saldoPoupanca);
-                poupancas.add(poupanca);
-                
-            } 
-            menu();
+        if (seletor == 1) {
+            System.out.println("Nome : ");
+
+            String nome;
+            sc.nextLine();
+            nome = sc.nextLine();
+            System.out.println("Numero da conta : ");
+            int numeroConta = sc.nextInt();
+            System.out.println("Saldo inicial : ");
+
+            double saldo;
+            saldo = sc.nextDouble();
+            Conta conta = new Conta(numeroConta, nome, saldo);
+            contas.add(conta);
+
         }
-        
-    
+        if (seletor == 2) {
+            System.out.println("Nome : ");
+            sc.nextLine();
+            String nome = sc.nextLine();
+            System.out.println("Numero da conta : ");
+            int numeroConta = sc.nextInt();
+            System.out.println("Saldo inicial : ");
+            double saldo = sc.nextDouble();
+            System.out.println("Saldo inicial da poupanca : ");
+            double saldoPoupanca = sc.nextDouble();
+            Poupanca poupanca = new Poupanca(numeroConta, nome, saldo, saldoPoupanca);
+            poupancas.add(poupanca);
+
+        }
+        menu();
+    }
 
     private static Conta encontrarConta(int numeroConta) {
         Conta conta = null;
@@ -125,8 +124,33 @@ public class Main {
         }
         return poupanca;
     }
-    
 
+    public static void tranferencia() {
+        System.out.println("Digite o numero da conta : ");
+        int numeroConta = sc.nextInt();
+
+        Poupanca poupanca = encontrarPoupanca(numeroConta);
+        if (poupanca == null) {
+            System.out.println("Essa conta nao existe ou é uma conta que nao possui poupanca ");
+        } else {
+            System.out.println("Digite 1 - Para tranferir de poupanca para CC ");
+            System.out.println("Digite 2 - Para tranferir de CC para poupanca ");
+            int escolha = sc.nextInt();
+            if (escolha == 1) {
+                System.out.println("Quanto deseja tranferir ");
+                double tranferencia = sc.nextDouble();
+                poupanca.PoupancaParaContaCorrente(tranferencia);
+
+            }
+            if (escolha == 2) {
+                System.out.println("Quanto deseja tranferir ");
+                double tranferencia = sc.nextDouble();
+                poupanca.contaCorrentaParaPoupanca(tranferencia);
+            }
+        }
+        menu();
+
+    }
 
     public static void depositar() {
         System.out.println("Digite o numero da conta : ");
@@ -134,35 +158,36 @@ public class Main {
         Conta conta = encontrarConta(numeroConta);
         Poupanca poupanca = encontrarPoupanca(numeroConta);
         if (conta != null) {
-              System.out.println("Quanto deseja depositar ? ");
+            System.out.println("Quanto deseja depositar ? ");
             double valorDeposito = sc.nextDouble();
             conta.deposito(valorDeposito);
 
-        }if (poupanca != null) {
-              System.out.println("Quanto deseja depositar ? ");
+        }
+        if (poupanca != null) {
+            System.out.println("Quanto deseja depositar ? ");
             double valorDeposito = sc.nextDouble();
             poupanca.deposito(valorDeposito);
-         } else {
-            System.out.println("Conta nao existe");
-        }
-        menu();
-    
-    }
-
-    public static void sacar(){
-        System.out.println("Digite o numero da conta : ");
-        int numeroConta = sc.nextInt();
-        Conta conta = encontrarConta(numeroConta);
-        if (conta != null) {
-              System.out.println("Quanto deseja sacar ? ");
-            double saque = sc.nextDouble();
-            conta.saque(saque);
-            
         } else {
             System.out.println("Conta nao existe");
         }
         menu();
-    
+
+    }
+
+    public static void sacar() {
+        System.out.println("Digite o numero da conta : ");
+        int numeroConta = sc.nextInt();
+        Conta conta = encontrarConta(numeroConta);
+        if (conta != null) {
+            System.out.println("Quanto deseja sacar ? ");
+            double saque = sc.nextDouble();
+            conta.saque(saque);
+
+        } else {
+            System.out.println("Conta nao existe");
+        }
+        menu();
+
     }
 
     public static void listarContas() {
