@@ -11,6 +11,14 @@ ATV5       ===== Uber
 
 ATV6       ===== InsideCircle 
 
-ATV8 ATV11 =====  BancoP3
+ATV7       ===== quizGoogleDocs
+
+ATV8        =====  BancoP3
+
+ATV9       ===== quizGoogleDocs
+
+ATV10      ===== quizGoogleDocs
+
+ATV11      ===== BancoP3
 
 ATV12      ==== EmpregadoP3
