@@ -34,7 +34,7 @@ public class Poupanca extends Conta {
             this.saldo = saldo + tranferencia;
             System.out.println("Transferencia realizada");
         } else {
-            System.out.println("Voce nao possui esse saldo na conta corrente");
+            System.out.println("Voce nao possui esse saldo na poupanca");
         }
 
     }
