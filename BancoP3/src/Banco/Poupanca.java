@@ -27,6 +27,7 @@ public class Poupanca extends Conta {
         }
 
     }
+
     public void PoupancaParaContaCorrente(double tranferencia) {
         if (tranferencia <= saldoPoupanca) {
             this.saldoPoupanca = saldoPoupanca - tranferencia;
@@ -41,7 +42,7 @@ public class Poupanca extends Conta {
     public String toString() {
         return "Nome : " + nome + "\n" +
                 "Conta : " + numeroConta + "\n" +
-                "Saldo : " + saldo + "\n" +
+                "Conta Corrente : " + saldo + "\n" +
                 "Poupanca : " + saldoPoupanca;
     }
 

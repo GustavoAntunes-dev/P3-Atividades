@@ -46,7 +46,7 @@ public class Conta extends Banco {
     public String toString() {
         return "Nome : " + nome + "\n" +
                 "Conta : " + numeroConta + "\n" +
-                "Saldo : " + saldo;
+                "Conta Corrente : " + saldo;
     }
 
 }
