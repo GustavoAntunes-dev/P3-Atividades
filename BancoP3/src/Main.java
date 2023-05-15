@@ -178,17 +178,25 @@ public class Main {
         System.out.println("Digite o numero da conta : ");
         int numeroConta = sc.nextInt();
         Conta conta = encontrarConta(numeroConta);
+        Poupanca poupanca = encontrarPoupanca(numeroConta);
         if (conta != null) {
             System.out.println("Quanto deseja sacar ? ");
             double saque = sc.nextDouble();
             conta.saque(saque);
 
-        } else {
+        }if (poupanca != null) {
+            System.out.println("Quanto deseja sacar ? ");
+            double saque = sc.nextDouble();
+            poupanca.saque(saque);
+         } else {
             System.out.println("Conta nao existe");
+            }
+            menu();
         }
-        menu();
+    
+        
 
-    }
+    
 
     public static void listarContas() {
         if (contas != null || poupancas != null) {
